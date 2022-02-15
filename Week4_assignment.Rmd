@@ -1,10 +1,13 @@
 #Import Dataframe Week4
 readRDS(Week4.rds)
+library(jmv)
 
 #R code from Assignment Week 4 in Jamovi
 
 #descriptive statistics for categorical variables
+```{r}
 jmv::descriptives(
+
   data = dataset,
   vars = vars(sex, research),
   freq = TRUE,
@@ -12,18 +15,24 @@ jmv::descriptives(
   mean = FALSE,
   median = FALSE,
   mode = TRUE,
-  sd = FALSE)
+    sd = FALSE)
+```
 
 #change of variable name: lvst4_recode(Jamovi) in lvst4reverse (R)
 
 
-class(dataset$lvst4reverse)= 'Character'
+```{r}
+library(rio)
+dataset <- rio::import("Week4.rds")
 
+dataset$lvst4reverse<-as.factor(dataset$lvst4reverse)
 jmv::descriptives(
   data = dataset,
-  vars = vars(lvst1, lvst2, lvst3, lvst4, frst1, frst2, frst3, lvst4reverse), 
+  vars = vars(lvst1, lvst2, lvst3, lvst4, frst1, frst2, frst3,lvst4reverse), 
   freq = TRUE,
   bar = TRUE)
+```
+  
 
 barplot(dataset$lvst4reverse)
 
@@ -31,6 +40,7 @@ barplot(dataset$lvst4reverse)
 #change of variable name: BMI(Jamovi) in bmi(R)
 
 
+```{r}
 jmv::descriptives(
   data = dataset,
   vars = vars(height, weight, bmi, LOSS_total, FOSS_total, LOSS_mean, FOSS_mean, LOSS_total_z, FOSS_total_z, LOSS_mean_z, FOSS_mean_z),
@@ -39,3 +49,4 @@ jmv::descriptives(
   range = TRUE,
   min = FALSE,
   max = FALSE)
+```
